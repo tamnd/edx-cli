@@ -26,22 +26,23 @@ docker run --rm ghcr.io/tamnd/edx:latest --help
 ## Usage
 
 ```bash
-edx page <path>                      # fetch one page as a record
-edx page <path> -o json              # as JSON, ready for jq
-edx page <path> --template '{{.Body}}'  # just the readable body text
-edx links <path>                     # the pages it links to, one per line
-edx --help                           # the whole command tree
+edx subjects                                         # list all subject areas (offline)
+edx search "machine learning"                        # search courses by keyword
+edx search "data science" --subject computer-science # filter by subject
+edx course machine-learning/stanford-university-ml   # fetch course details by slug
+edx course https://www.edx.org/learn/ai/ibm-ai      # or full URL
+edx top --subject data-science                       # browse featured courses
+edx --help                                           # the whole command tree
 ```
+
+Note: edX's search page is JavaScript-rendered (Algolia). The `search` command
+extracts whatever structured data the initial HTML carries. Use `edx course <slug>`
+for reliable metadata on a specific course.
 
 Every command shares one output contract: `-o table|json|jsonl|csv|tsv|url|raw`,
 `--fields` to pick columns, `--template` for a custom line, and `-n` to limit.
 The default adapts to where output goes (a table on a terminal, JSONL in a
 pipe), so the same command reads well by hand and parses cleanly downstream.
-
-This is a fresh scaffold. It ships one example resource type, `page`, wired end
-to end. Model the real edx records in `edx/` and declare their
-operations in `edx/domain.go`; each one becomes a command, an HTTP
-route, and an MCP tool at once.
 
 ## Serve it
 

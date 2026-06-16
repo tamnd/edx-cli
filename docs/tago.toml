@@ -1,0 +1,10 @@
+title       = "edx"
+baseURL     = "https://edx-cli.tamnd.com/"
+description = "Search and browse courses on edX"
+contentDir  = "content"
+outputDir   = "public"
+theme       = "tago-doks"
+syntaxHighlight = "true"
+
+[params]
+github = "https://github.com/tamnd/edx-cli"
